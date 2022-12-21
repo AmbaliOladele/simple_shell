@@ -12,7 +12,7 @@ int _erratoi(char *s)
 	unsigned long int result = 0;
 
 	if (*s == '+')
-		s++;
+		s++; /* TODO: why does make main return 255? */
 	for (i = 0; s[i] != '\0'; i++)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
@@ -40,6 +40,8 @@ void print_error(info_t *info, char *estr)
 	_eputs(info->fname);
 	_eputs(": ");
 	print_d(info->line_count, STDERR_FILENO);
+	_eputs("; ");
+	_eputs(info->argv[0]);
 	_eputs(": ");
 	_eputs(estr);
 }
@@ -52,16 +54,16 @@ void print_error(info_t *info, char *estr)
  */
 int print_d(int input, int fd)
 {
-	int (*_putchar)(char) = _putchar;
+	int (*__putchar)(char) = _putchar;
 	int i, count = 0;
 	unsigned int _abs_, current;
 
 	if (fd == STDERR_FILENO)
-		_putchar = _eputchar;
+		__putchar = _eputchar;
 	if (input < 0)
 	{
-		_abs_ = input;
-		_putchar('-');
+		_abs_ = -input;
+		__putchar('-');
 		count++;
 	}
 	else
@@ -71,12 +73,12 @@ int print_d(int input, int fd)
 	{
 		if (_abs_ / i)
 		{
-			_putchar('0' + current / i);
+			__putchar('0' + current / i);
 			count++;
 		}
 		current %= i;
 	}
-	_putchar('0' + current);
+	__putchar('0' + current);
 	count++;
 
 	return (count);

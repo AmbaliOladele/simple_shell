@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _myhistory - displays th history list, one command by line, preceded
+ * _myhistory - displays the history list, one command by line, preceded
  * with line numbers, starting at 0.
  * @info: Structure containing potential arguments. Used to maintain
  * constant function proototype
@@ -14,7 +14,7 @@ int _myhistory(info_t *info)
 }
 
 /**
- * unset_alias - set alis oto string
+ * unset_alias - sets alias to string
  * @info: parameter struct
  * @str: the string alias
  * Return: Alwasys 0 on success, 1 on error
