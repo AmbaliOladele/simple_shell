@@ -41,7 +41,7 @@ extern char **environ;
  * struct liststr - singly linked list
  * @num: the number field
  * @str: a string
- * @next: points to the next mode
+ * @next: points to the next node
  */
 typedef struct liststr
 {
@@ -52,7 +52,7 @@ typedef struct liststr
 
 /**
  * struct passinfo - contains pseudo-arguments to pass into a function
- * allowing uniform prottype for function pointer struct
+ * allowing uniform prototype for function pointer struct
  * @arg: a string generated from getline containing arguments
  * @argv:an array of strings generated from arg
  * @path: a string path for the current command
@@ -68,6 +68,7 @@ typedef struct liststr
  * @env_changed: On if environ changed
  * @status: return status of the last exec'd cmd
  * @cmd_buf: address of pointer to cmd_buf, on if chaining
+ * @cmd_buf_type: CMD_type ||, &&, ;
  * @readfd: the file directory from which read line input
  * @histcount: the history line number count
  */
@@ -98,7 +99,7 @@ typedef struct passinfo
 	0, 0, 0}
 
 /**
- * struct builtin - contains a builtin string and related func
+ * struct builtin - contains a builtin string and related function
  * @type: the builtin command flag
  * @func: the function
  */
@@ -117,7 +118,7 @@ void fork_cmd(info_t *);
 
 /* toem_parser.c */
 int is_cmd(info_t *, char *);
-char *dup_char(char *, int, int);
+char *dup_chars(char *, int, int);
 char *find_path(info_t *, char *, char *);
 
 /* loophsh.c */
@@ -132,7 +133,7 @@ int _putsfd(char *str, int fd);
 /* toem_string */
 int _strlen(char *);
 int _strcmp(char *, char *);
-char *start_with(const char *, const char *);
+char *starts_with(const char *, const char *);
 char *_strcat(char *, char *);
 
 /* toem_string1.c */
@@ -147,8 +148,8 @@ char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
 
 /* toem_tokenizer.c */
-char **strow(char *, char *);
-char **strow2(char *, char *);
+char **strtow(char *, char *);
+char **strtow2(char *, char);
 
 /* toem_realloc.c */
 char *_memset(char *, char, unsigned int);
@@ -170,6 +171,11 @@ void print_error(info_t *, char *);
 int print_d(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
+
+/* toem_builtin.c */
+int _myexit(info_t *);
+int _mycd(info_t *);
+int _myhelp(info_t *);
 
 /* toem_builtin1.c */
 int _myhistory(info_t *);
@@ -194,7 +200,7 @@ int populate_env_list(info_t *);
 
 /* toem_getenv.c */
 char **get_environ(info_t *);
-int _unsetenc(info_t *, char *);
+int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
 /* toem_history.c */

@@ -25,7 +25,7 @@ size_t list_len(const list_t *h)
 char **list_to_strings(list_t *head)
 {
 	list_t *node = head;
-	size_t *node = list_len(head), j;
+	size_t i = list_len(head), j;
 	char **strs;
 	char *str;
 
@@ -34,7 +34,7 @@ char **list_to_strings(list_t *head)
 	strs = malloc(sizeof(char *) * (i + 1));
 	if (!strs)
 		return (NULL);
-	for = (i = 0; node; node = node->next, i++)
+	for (i = 0; node; node = node->next, i++)
 	{
 		str = malloc(_strlen(node->str) + 1);
 		if (!str)
